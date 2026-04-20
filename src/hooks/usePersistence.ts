@@ -4,6 +4,7 @@ const KEYS = {
   session: 'kings-cup-session',
   players: 'kings-cup-players',
   rules: 'kings-cup-custom-rules',
+  activeDraw: 'kings-cup-active-draw',
 } as const;
 
 // ── Session persistence ──────────────────────────────────────────
@@ -36,8 +37,34 @@ export function loadSession(): GameState | null {
 export function clearSession(): void {
   try {
     localStorage.removeItem(KEYS.session);
+    localStorage.removeItem(KEYS.activeDraw);
   } catch {
     // Silent fail
+  }
+}
+
+// ── Active draw persistence ──────────────────────────────────────
+
+export function saveActiveDraw(draw: import('../engine/types').DrawResult | null, revealed: boolean): void {
+  try {
+    if (draw) {
+      localStorage.setItem(KEYS.activeDraw, JSON.stringify({ draw, revealed }));
+    } else {
+      localStorage.removeItem(KEYS.activeDraw);
+    }
+  } catch {
+    // Silent fail
+  }
+}
+
+export function loadActiveDraw(): { draw: import('../engine/types').DrawResult | null; revealed: boolean } {
+  try {
+    const raw = localStorage.getItem(KEYS.activeDraw);
+    if (!raw) return { draw: null, revealed: false };
+    const parsed = JSON.parse(raw);
+    return { draw: parsed.draw || null, revealed: !!parsed.revealed };
+  } catch {
+    return { draw: null, revealed: false };
   }
 }
 

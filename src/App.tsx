@@ -13,6 +13,7 @@ export default function App() {
     startGame,
     draw,
     revealCard,
+
     nextTurn,
     resetGame,
     restoreGame,
@@ -35,6 +36,7 @@ export default function App() {
               cardRevealed={cardRevealed}
               onDraw={draw}
               onReveal={revealCard}
+
               onNextTurn={nextTurn}
               onReset={resetGame}
               onRestore={restoreGame}

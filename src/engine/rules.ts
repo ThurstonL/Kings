@@ -15,7 +15,7 @@ export const DEFAULT_RULES: RuleDefinition[] = [
   { rank: '10', label: 'Categories',        prompt: 'Pick a category. Go around naming things in it. First person who can\'t, drinks.' },
   { rank: 'J',  label: 'Never Have I Ever', prompt: 'Hold up 3 fingers. Take turns saying "Never have I ever…" — put a finger down if you have. First to zero drinks.' },
   { rank: 'Q',  label: 'Questions',         prompt: 'Ask someone a question. They must respond with a question. First person who doesn\'t, drinks.' },
-  { rank: 'K',  label: 'Make a Rule',       prompt: 'Make a rule everyone must follow. Break it = drink. On the 4th King, finish the King\'s Cup!' },
+  { rank: 'K',  label: 'Make a Rule',       prompt: 'Make a rule everyone must follow. Break it = drink.' },
 ];
 
 /**

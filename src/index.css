@@ -1137,3 +1137,74 @@ body {
     max-width: 420px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   BEER METER
+   ═══════════════════════════════════════════════════════════════ */
+   
+.beer-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 24px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  animation: slideUp 0.3s ease-out backwards;
+  animation-delay: 0.1s;
+}
+
+.beer-meter__title {
+  color: var(--gold-400);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
+  margin: 0;
+}
+
+.beer-meter__track {
+  width: 100%;
+  height: 24px;
+  background: var(--bg-surface);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.beer-meter__indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  margin-left: -8px;
+  background: var(--card-red);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.8);
+}
+
+.beer-meter__labels {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  pointer-events: none;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.beer-meter__action {
+  width: 100%;
+  margin-top: 8px;
+}

@@ -43,17 +43,16 @@ export interface GameConfig {
   rules: RuleDefinition[];
 }
 
-export type GameStatus = 'playing' | 'king4' | 'finished';
+export type GameStatus = 'playing' | 'kingsCup' | 'finished';
 
 export interface GameState {
   config: GameConfig;
   deck: Card[];
   discard: Card[];
-  kingsDrawn: number;
   currentPlayerIndex: number;
   status: GameStatus;
-  /** Track which player drew each king */
-  kingPlayers: string[];
+  kingsDrawn: number;
+  loserPlayer: string | null;
 }
 
 export interface DrawResult {
@@ -61,8 +60,6 @@ export interface DrawResult {
   rule: RuleDefinition;
   player: string;
   remainingCards: number;
-  isGameOver: boolean;
-  kingsDrawn: number;
 }
 
 export interface SavedPreset {

@@ -18,7 +18,7 @@ export default function Summary({ gameState, onReset, onPlayAgain }: SummaryProp
     return null;
   }
 
-  const { config, discard, kingsDrawn, kingPlayers } = gameState;
+  const { config, discard, loserPlayer } = gameState;
 
   const handlePlayAgain = () => {
     onPlayAgain(config.players, config.rules);
@@ -36,8 +36,8 @@ export default function Summary({ gameState, onReset, onPlayAgain }: SummaryProp
       <header className="summary__header">
         <span className="summary__crown">♔</span>
         <h1 className="summary__title">Game Over</h1>
-        {kingsDrawn >= 4 && (
-          <p className="summary__subtitle">The King's Cup has been claimed!</p>
+        {loserPlayer && (
+          <p className="summary__subtitle">The King's Cup has been awarded!</p>
         )}
       </header>
 
@@ -51,23 +51,18 @@ export default function Summary({ gameState, onReset, onPlayAgain }: SummaryProp
           <span className="summary__stat-value">{config.players.length}</span>
           <span className="summary__stat-label">Players</span>
         </div>
-        <div className="summary__stat">
-          <span className="summary__stat-value">{kingsDrawn}</span>
-          <span className="summary__stat-label">Kings</span>
-        </div>
+
       </section>
 
-      {/* King History */}
-      {kingPlayers.length > 0 && (
+      {/* Tab Loser */}
+      {loserPlayer && (
         <section className="summary__section">
-          <h2 className="summary__section-title">Kings Drawn By</h2>
+          <h2 className="summary__section-title">The Loser</h2>
           <div className="summary__king-list">
-            {kingPlayers.map((player, i) => (
-              <div key={i} className="summary__king-item">
-                <span className="summary__king-number">♔ King #{i + 1}</span>
-                <span className="summary__king-player">{player}</span>
-              </div>
-            ))}
+            <div className="summary__king-item">
+              <span className="summary__king-number">👑 Drank the King's Cup</span>
+              <span className="summary__king-player">{loserPlayer}</span>
+            </div>
           </div>
         </section>
       )}

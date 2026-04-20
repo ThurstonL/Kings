@@ -28,7 +28,7 @@ export default function GameScreen({
 }: GameScreenProps) {
   const navigate = useNavigate();
   const [showQuit, setShowQuit] = useState(false);
-  const [showKing4, setShowKing4] = useState(false);
+  const [showKing, setShowKing] = useState(false);
 
   // Restore session on mount if no active game
   useEffect(() => {
@@ -42,16 +42,15 @@ export default function GameScreen({
     }
   }, [gameState, navigate, onRestore]);
 
-  // Handle game over
   useEffect(() => {
-    if (gameState?.status === 'king4') {
-      setShowKing4(true);
+    if (gameState?.status === 'kingsCup') {
+      setShowKing(true);
     }
   }, [gameState?.status]);
 
   if (!gameState) return null;
 
-  const { config, deck, discard, kingsDrawn, currentPlayerIndex, status } = gameState;
+  const { config, deck, discard, currentPlayerIndex, status } = gameState;
   const currentPlayer = config.players[currentPlayerIndex];
   const totalCards = deck.length + discard.length;
   const cardsRemaining = deck.length;
@@ -78,7 +77,7 @@ export default function GameScreen({
   };
 
   const handleEndGame = () => {
-    setShowKing4(false);
+    setShowKing(false);
     navigate('/summary');
   };
 
@@ -96,16 +95,6 @@ export default function GameScreen({
         <div className="game__deck-count">
           <span className="game__deck-number">{cardsRemaining}</span>
           <span className="game__deck-label">/{totalCards}</span>
-        </div>
-        <div className="game__kings">
-          {[0, 1, 2, 3].map((i) => (
-            <span
-              key={i}
-              className={`game__king-icon ${i < kingsDrawn ? 'game__king-icon--filled' : ''}`}
-            >
-              ♔
-            </span>
-          ))}
         </div>
       </header>
 
@@ -133,25 +122,26 @@ export default function GameScreen({
         )}
       </div>
 
-      {/* Rule Display */}
+      {/* Rule & Meter Area */}
       {lastDraw && cardRevealed && (
-        <div className="game__rule-display">
-          <h2 className="game__rule-label">{lastDraw.rule.label}</h2>
-          <p className="game__rule-prompt">{lastDraw.rule.prompt}</p>
-        </div>
-      )}
-
-      {/* Action Button */}
-      {lastDraw && cardRevealed && status !== 'king4' && (
-        <div className="game__action">
-          <button
-            className="btn btn--primary btn--xl"
-            onClick={handleNextTurn}
-            id="next-turn-btn"
-          >
-            Next Player →
-          </button>
-        </div>
+        <>
+          <div className="game__rule-display">
+            <h2 className="game__rule-label">{lastDraw.rule.label}</h2>
+            <p className="game__rule-prompt">{lastDraw.rule.prompt}</p>
+          </div>
+          
+          {status !== 'kingsCup' && (
+            <div className="game__action">
+              <button
+                className="btn btn--primary btn--xl"
+                onClick={handleNextTurn}
+                id="next-turn-btn"
+              >
+                Next Player →
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {status === 'finished' && (
@@ -165,14 +155,14 @@ export default function GameScreen({
         </div>
       )}
 
-      {/* 4th King Overlay */}
-      {showKing4 && (
+      {/* Tab Popped Overlay */}
+      {showKing && (
         <div className="game__king4-overlay">
           <div className="game__king4-content">
             <span className="game__king4-crown">👑</span>
-            <h2 className="game__king4-title">4th King!</h2>
+            <h2 className="game__king4-title">King's Cup!</h2>
             <p className="game__king4-text">
-              {lastDraw?.player} drew the final King!<br />
+              {gameState.loserPlayer} drew the 4th King!<br />
               Time to drink the King's Cup!
             </p>
             <button

@@ -27,9 +27,6 @@ export function shuffleDeck(deck: Card[]): Card[] {
   return d;
 }
 
-/**
- * Initialize a new game state from a config.
- */
 export function initGameState(
   players: string[],
   rules: import('./types').RuleDefinition[],
@@ -38,16 +35,17 @@ export function initGameState(
     config: { players, rules },
     deck: shuffleDeck(createDeck()),
     discard: [],
-    kingsDrawn: 0,
     currentPlayerIndex: 0,
     status: 'playing',
-    kingPlayers: [],
+    kingsDrawn: 0,
+    loserPlayer: null,
   };
 }
 
 /**
  * Draw the top card from the deck. Returns the draw result and next game state.
  * Pure function — does not mutate.
+ * Note: Turn officially advances when calling advanceTurn()
  */
 export function drawCard(state: GameState): { result: DrawResult; nextState: GameState } {
   if (state.deck.length === 0 || state.status !== 'playing') {
@@ -58,27 +56,25 @@ export function drawCard(state: GameState): { result: DrawResult; nextState: Gam
   const currentPlayer = state.config.players[state.currentPlayerIndex];
   const rule = resolveRule(card, state.config.rules);
 
-  let kingsDrawn = state.kingsDrawn;
-  const kingPlayers = [...state.kingPlayers];
+  let newKingsDrawn = state.kingsDrawn;
+  let newStatus: import('./types').GameStatus = remainingDeck.length === 0 ? 'finished' : 'playing';
+  let newLoser = state.loserPlayer;
 
   if (card.rank === 'K') {
-    kingsDrawn += 1;
-    kingPlayers.push(currentPlayer);
+    newKingsDrawn++;
+    if (newKingsDrawn === 4) {
+      newStatus = 'kingsCup';
+      newLoser = currentPlayer;
+    }
   }
-
-  const isGameOver = kingsDrawn >= 4;
-  const nextPlayerIndex = isGameOver
-    ? state.currentPlayerIndex
-    : (state.currentPlayerIndex + 1) % state.config.players.length;
 
   const nextState: GameState = {
     ...state,
     deck: remainingDeck,
     discard: [...state.discard, card],
-    kingsDrawn,
-    kingPlayers,
-    currentPlayerIndex: nextPlayerIndex,
-    status: isGameOver ? 'king4' : (remainingDeck.length === 0 ? 'finished' : 'playing'),
+    status: newStatus,
+    kingsDrawn: newKingsDrawn,
+    loserPlayer: newLoser,
   };
 
   const result: DrawResult = {
@@ -86,9 +82,21 @@ export function drawCard(state: GameState): { result: DrawResult; nextState: Gam
     rule,
     player: currentPlayer,
     remainingCards: remainingDeck.length,
-    isGameOver,
-    kingsDrawn,
   };
 
   return { result, nextState };
+}
+
+
+
+/**
+ * Cycle to the next player.
+ */
+export function advanceTurn(state: GameState): GameState {
+  if (state.status !== 'playing') return state;
+  const nextPlayerIndex = (state.currentPlayerIndex + 1) % state.config.players.length;
+  return {
+    ...state,
+    currentPlayerIndex: nextPlayerIndex,
+  };
 }
