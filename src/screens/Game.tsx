@@ -50,7 +50,7 @@ export default function GameScreen({
 
   if (!gameState) return null;
 
-  const { config, deck, discard, currentPlayerIndex, status } = gameState;
+  const { config, deck, discard, currentPlayerIndex, status, kingsDrawn } = gameState;
   const currentPlayer = config.players[currentPlayerIndex];
   const totalCards = deck.length + discard.length;
   const cardsRemaining = deck.length;
@@ -84,7 +84,7 @@ export default function GameScreen({
   return (
     <div className="screen screen--game">
       {/* Top Bar */}
-      <header className="game__header">
+      <header className="game__header" style={{ position: 'relative' }}>
         <button
           className="btn btn--ghost btn--sm"
           onClick={() => setShowQuit(true)}
@@ -92,9 +92,37 @@ export default function GameScreen({
         >
           ✕
         </button>
-        <div className="game__deck-count">
-          <span className="game__deck-number">{cardsRemaining}</span>
-          <span className="game__deck-label">/{totalCards}</span>
+
+        {/* Center Indicators */}
+        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+          <div className="game__deck-count">
+            <span className="game__deck-number">{cardsRemaining}</span>
+            <span className="game__deck-label">/{totalCards}</span>
+          </div>
+
+          <div className="game__kings">
+            {[0, 1, 2, 3].map((i) => (
+              <span 
+                key={i} 
+                className={`game__king-icon ${i < kingsDrawn ? 'game__king-icon--filled' : ''}`}
+              >
+                ♔
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Top Right Next Button */}
+        <div style={{ display: 'flex', minWidth: '70px', justifyContent: 'flex-end' }}>
+          {lastDraw && cardRevealed && status !== 'kingsCup' && (
+            <button
+              className="btn btn--primary btn--sm"
+              onClick={handleNextTurn}
+              id="next-turn-btn-header"
+            >
+              Next →
+            </button>
+          )}
         </div>
       </header>
 
@@ -130,17 +158,6 @@ export default function GameScreen({
             <p className="game__rule-prompt">{lastDraw.rule.prompt}</p>
           </div>
           
-          {status !== 'kingsCup' && (
-            <div className="game__action">
-              <button
-                className="btn btn--primary btn--xl"
-                onClick={handleNextTurn}
-                id="next-turn-btn"
-              >
-                Next Player →
-              </button>
-            </div>
-          )}
         </>
       )}
 

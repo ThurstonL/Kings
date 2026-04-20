@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-/* ═══════════════════════════════════════════════════════════════
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');/* ═══════════════════════════════════════════════════════════════
    King's Cup — Design System
    Deep purple/indigo dark theme with gold accents
    ═══════════════════════════════════════════════════════════════ */
@@ -76,9 +75,6 @@ body {
 #root {
   min-height: 100dvh;
 }
-
-/* Google Font import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 /* ── Screen Layout ──────────────────────────────────────────── */
 .screen {
@@ -159,8 +155,16 @@ body {
   box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
 }
 
-.btn--sm { padding: 6px 12px; font-size: 13px; }
-.btn--lg { padding: 14px 28px; font-size: 16px; }
+.btn--sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn--lg {
+  padding: 14px 28px;
+  font-size: 16px;
+}
+
 .btn--xl {
   padding: 16px 32px;
   font-size: 18px;
@@ -176,7 +180,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   padding: 12px 16px;
-  font-size: 16px; /* prevents iOS zoom */
+  font-size: 16px;
+  /* prevents iOS zoom */
   font-family: inherit;
   color: var(--text-primary);
   width: 100%;
@@ -230,9 +235,17 @@ body {
 }
 
 @keyframes cardFlip {
-  0% { transform: rotateY(0deg) scale(1); }
-  50% { transform: rotateY(90deg) scale(1.05); }
-  100% { transform: rotateY(180deg) scale(1); }
+  0% {
+    transform: rotateY(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotateY(90deg) scale(1.05);
+  }
+
+  100% {
+    transform: rotateY(180deg) scale(1);
+  }
 }
 
 .card__front,
@@ -265,13 +278,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 8px,
-    rgba(251, 191, 36, 0.04) 8px,
-    rgba(251, 191, 36, 0.04) 16px
-  );
+  background: repeating-linear-gradient(45deg,
+      transparent,
+      transparent 8px,
+      rgba(251, 191, 36, 0.04) 8px,
+      rgba(251, 191, 36, 0.04) 16px);
 }
 
 .card__back-icon {
@@ -298,8 +309,13 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.card__front--red { color: var(--card-red); }
-.card__front--black { color: #1a1a2e; }
+.card__front--red {
+  color: var(--card-red);
+}
+
+.card__front--black {
+  color: #1a1a2e;
+}
 
 .card__corner {
   display: flex;
@@ -318,16 +334,16 @@ body {
 }
 
 .card__rank {
-  font-size: 22px;
-  font-weight: 800;
+  font-size: 40px;
+  font-weight: 900;
 }
 
 .card__suit {
-  font-size: 16px;
+  font-size: 32px;
 }
 
-.card--large .card__rank { font-size: 32px; }
-.card--large .card__suit { font-size: 22px; }
+.card--large .card__rank { font-size: 64px; }
+.card--large .card__suit { font-size: 48px; }
 
 .card__center {
   flex: 1;
@@ -554,16 +570,54 @@ body {
   animation: floatDrift 20s ease-in-out infinite;
 }
 
-.landing__float--1 { top: 10%; left: 8%; animation-delay: 0s; font-size: 64px; }
-.landing__float--2 { top: 25%; right: 12%; animation-delay: -5s; font-size: 56px; color: var(--card-red); }
-.landing__float--3 { bottom: 30%; left: 15%; animation-delay: -10s; font-size: 72px; color: var(--card-red); }
-.landing__float--4 { bottom: 15%; right: 8%; animation-delay: -15s; font-size: 52px; }
+.landing__float--1 {
+  top: 10%;
+  left: 8%;
+  animation-delay: 0s;
+  font-size: 64px;
+}
+
+.landing__float--2 {
+  top: 25%;
+  right: 12%;
+  animation-delay: -5s;
+  font-size: 56px;
+  color: var(--card-red);
+}
+
+.landing__float--3 {
+  bottom: 30%;
+  left: 15%;
+  animation-delay: -10s;
+  font-size: 72px;
+  color: var(--card-red);
+}
+
+.landing__float--4 {
+  bottom: 15%;
+  right: 8%;
+  animation-delay: -15s;
+  font-size: 52px;
+}
 
 @keyframes floatDrift {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(15px, -20px) rotate(5deg); }
-  50% { transform: translate(-10px, -35px) rotate(-3deg); }
-  75% { transform: translate(20px, -15px) rotate(4deg); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(15px, -20px) rotate(5deg);
+  }
+
+  50% {
+    transform: translate(-10px, -35px) rotate(-3deg);
+  }
+
+  75% {
+    transform: translate(20px, -15px) rotate(4deg);
+  }
 }
 
 .landing__content {
@@ -583,8 +637,17 @@ body {
 }
 
 @keyframes crownPulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 24px rgba(251, 191, 36, 0.3)); }
-  50% { transform: scale(1.05); filter: drop-shadow(0 8px 36px rgba(251, 191, 36, 0.5)); }
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 4px 24px rgba(251, 191, 36, 0.3));
+  }
+
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 36px rgba(251, 191, 36, 0.5));
+  }
 }
 
 .landing__title {
@@ -601,8 +664,15 @@ body {
 }
 
 @keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .landing__subtitle {
@@ -635,7 +705,8 @@ body {
    ═══════════════════════════════════════════════════════════════ */
 .screen--setup {
   gap: 0;
-  padding-bottom: 100px; /* room for fixed footer */
+  padding-bottom: 100px;
+  /* room for fixed footer */
 }
 
 .setup__header {
@@ -773,15 +844,17 @@ body {
 }
 
 .game__deck-number {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 .game__deck-label {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--text-muted);
   font-weight: 500;
+  line-height: 1;
 }
 
 .game__kings {
@@ -803,9 +876,19 @@ body {
 }
 
 @keyframes kingPop {
-  0% { transform: scale(0.5); opacity: 0; }
-  70% { transform: scale(1.3); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .game__player-turn {
@@ -843,8 +926,15 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .game__rule-display {
@@ -858,8 +948,15 @@ body {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .game__rule-label {
@@ -897,8 +994,13 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .game__king4-content {
@@ -915,9 +1017,19 @@ body {
 }
 
 @keyframes crownBounce {
-  0% { transform: scale(0) rotate(-20deg); opacity: 0; }
-  50% { transform: scale(1.15) rotate(5deg); }
-  100% { transform: scale(1) rotate(0); opacity: 1; }
+  0% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
 }
 
 .game__king4-title {
@@ -1079,8 +1191,13 @@ body {
   min-width: 40px;
 }
 
-.summary__history-card--red { color: var(--card-red); }
-.summary__history-card--black { color: var(--card-black); }
+.summary__history-card--red {
+  color: var(--card-red);
+}
+
+.summary__history-card--black {
+  color: var(--card-black);
+}
 
 .summary__history-rule {
   flex: 1;
@@ -1141,7 +1258,7 @@ body {
 /* ═══════════════════════════════════════════════════════════════
    BEER METER
    ═══════════════════════════════════════════════════════════════ */
-   
+
 .beer-meter {
   display: flex;
   flex-direction: column;
@@ -1173,8 +1290,8 @@ body {
   border-radius: 12px;
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .beer-meter__indicator {
