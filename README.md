@@ -5,7 +5,7 @@ King's Cup is a React + TypeScript + Vite web app for running a King's Cup game 
 ## Local development
 
 ```bash
-cd /Users/thurston/Workspace/Kings
+cd /Users/thurston/Workspace/the-pregames/kings
 npm install
 npm run dev
 ```
@@ -15,7 +15,7 @@ The Vite dev server runs on port `5173` by default.
 ## Production build
 
 ```bash
-cd /Users/thurston/Workspace/Kings
+cd /Users/thurston/Workspace/the-pregames/kings
 npm run build
 ```
 
@@ -29,4 +29,4 @@ This app is deployed as a static site behind the existing Cloudflare Tunnel used
 - Local origin: `http://127.0.0.1:3002`
 - Runtime: macOS LaunchAgent `com.thepregames.kings.frontend`
 
-Deployment details and service-management steps are documented in [DEPLOYMENT.md](/Users/thurston/Workspace/Kings/DEPLOYMENT.md).
+Deployment details and service-management steps are documented in [DEPLOYMENT.md](./DEPLOYMENT.md).
